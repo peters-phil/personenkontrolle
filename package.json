@@ -1,19 +1,20 @@
 {
   "name": "shot-log",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Mobile-friendly one-time redemption log with privacy-preserving identifier hashing.",
-  "main": "server.js",
+  "description": "Mobile-friendly one-time redemption log for Vercel + Supabase.",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "better-sqlite3": "^11.7.0",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "@supabase/supabase-js": "^2.49.1"
+  },
+  "devDependencies": {
+    "vercel": "^41.0.0"
   }
 }
