@@ -1,0 +1,35 @@
+<button id="read">NFC-Tag lesen</button>
+<pre id="output"></pre>
+
+<script>
+document.getElementById("read").addEventListener("click", async () => {
+  const output = document.getElementById("output");
+
+  if (!("NDEFReader" in window)) {
+    output.textContent = "Web NFC wird in diesem Browser nicht unterstützt.";
+    return;
+  }
+
+  try {
+    const reader = new NDEFReader();
+    await reader.scan();
+    output.textContent = "Tag an die Rückseite des Smartphones halten …";
+
+    reader.onreading = event => {
+      const decoder = new TextDecoder();
+
+      for (const record of event.message.records) {
+        if (record.recordType === "text") {
+          output.textContent = decoder.decode(record.data);
+        } else if (record.recordType === "url") {
+          output.textContent = decoder.decode(record.data);
+        } else {
+          output.textContent = `Datensatztyp: ${record.recordType}`;
+        }
+      }
+    };
+  } catch (error) {
+    output.textContent = `Fehler: ${error.message}`;
+  }
+});
+</script>
